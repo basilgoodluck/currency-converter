@@ -52,28 +52,31 @@ window.addEventListener('DOMContentLoaded', ()=>{
 
                 return
             })
-            window.addEventListener('keydown', ()=>{
+            amountInput.addEventListener('keydown', (event)=>{
+                if (event.key === 'Enter') {
+                    const fromCurrency = fromSelect.value;
+                    const toCurrency = toSelect.value;
 
-                const fromCurrency = fromSelect.value;
-                const toCurrency = toSelect.value;
+                    const amount = parseFloat(amountInput.value);
 
-                const amount = parseFloat(amountInput.value);
+                    if(isNaN(amount)){
+                        result.innerHTML = 'Invalid amount'
+                        result.style.color = 'red'
+                        result.style.fontSize = '1rem'
+                        return
+                    }
+                    const fromRate = conversion_rates[fromCurrency];
+                    const toRate = conversion_rates[toCurrency];
+                    const convertedAmount = (amount / fromRate) * toRate;
 
-                if(isNaN(amount)){
-                    result.innerHTML = 'Invalid amount'
-                    result.style.color = 'red'
+                    result.textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+                    result.style.color = '#fff'
                     result.style.fontSize = '1rem'
-                    return
+
+                    return    
                 }
-                const fromRate = conversion_rates[fromCurrency];
-                const toRate = conversion_rates[toCurrency];
-                const convertedAmount = (amount / fromRate) * toRate;
 
-                result.textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
-                result.style.color = '#fff'
-                result.style.fontSize = '1rem'
-
-                return
+                
 
             })
         })
