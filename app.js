@@ -1,4 +1,5 @@
 window.addEventListener('DOMContentLoaded', ()=>{
+
     const amountInput = document.getElementById('input')
     const fromSelect = document.getElementById('fromCUR')
     const toSelect = document.getElementById('toCUR')
@@ -14,19 +15,70 @@ window.addEventListener('DOMContentLoaded', ()=>{
             currencies.forEach(currency=>{
                 const option1 = document.createElement('option')
                 const option2 = document.createElement('option')
+
                 option1.value = currency
                 option1.textContent = currency
-                option2.value = currency
-                option2.textContent = currency
+
+                
+                if(currency = 'NGN'){
+                    option2.value = currency
+                    option2.textContent = currency
+                }
 
                 fromSelect.appendChild(option1)
                 toSelect.appendChild(option2)
             })
 
             convertBTN.addEventListener('click', ()=>{
+
                 const fromCurrency = fromSelect.value;
                 const toCurrency = toSelect.value;
+
                 const amount = parseFloat(amountInput.value);
+
+                if(isNaN(amount)){
+                    result.innerHTML = 'Invalid amount'
+                    result.style.color = 'red'
+                    result.style.fontSize = '1rem'
+                    return
+                }
+                const fromRate = conversion_rates[fromCurrency];
+                const toRate = conversion_rates[toCurrency];
+                const convertedAmount = (amount / fromRate) * toRate;
+
+                result.textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+                result.style.color = '#fff'
+                result.style.fontSize = '1rem'
+
+                return
+            })
+            window.addEventListener('keydown', ()=>{
+
+                const fromCurrency = fromSelect.value;
+                const toCurrency = toSelect.value;
+
+                const amount = parseFloat(amountInput.value);
+
+                if(isNaN(amount)){
+                    result.innerHTML = 'Invalid amount'
+                    result.style.color = 'red'
+                    result.style.fontSize = '1rem'
+                    return
+                }
+                const fromRate = conversion_rates[fromCurrency];
+                const toRate = conversion_rates[toCurrency];
+                const convertedAmount = (amount / fromRate) * toRate;
+
+                result.textContent = `${amount} ${fromCurrency} = ${convertedAmount.toFixed(2)} ${toCurrency}`;
+                result.style.color = '#fff'
+                result.style.fontSize = '1rem'
+
+                return
+
             })
         })
+        .catch(error => {
+            console.error('Error fetching exchange rates:', error);
+            result.textContent = 'Error fetching exchange rates.';
+          });
 })
