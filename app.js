@@ -1,15 +1,15 @@
 window.addEventListener('DOMContentLoaded', ()=>{
-    const input = document.getElementById('input')
-    const fromCUR = document.getElementById('fromCUR')
-    const toCUR = document.getElementById('toCUR')
+    const amountInput = document.getElementById('input')
+    const fromSelect = document.getElementById('fromCUR')
+    const toSelect = document.getElementById('toCUR')
     const convertBTN = document.getElementById('submit')
     const result = document.getElementById('result')
 
     fetch('https://v6.exchangerate-api.com/v6/0f2a74214a9ae9305a85749e/latest/USD')
         .then(response => response.json())
         .then(data => {
-            const rates = data.rates;
-            const currencies = Object.keys(rates)
+            const conversion_rates = data.conversion_rates;
+            const currencies = Object.keys(conversion_rates)
 
             currencies.forEach(currency=>{
                 const option1 = document.createElement('option')
@@ -19,7 +19,14 @@ window.addEventListener('DOMContentLoaded', ()=>{
                 option2.value = currency
                 option2.textContent = currency
 
-                
+                fromSelect.appendChild(option1)
+                toSelect.appendChild(option2)
+            })
+
+            convertBTN.addEventListener('click', ()=>{
+                const fromCurrency = fromSelect.value;
+                const toCurrency = toSelect.value;
+                const amount = parseFloat(amountInput.value);
             })
         })
 })

@@ -25,9 +25,6 @@
     font-size: 2.5rem;
     font-weight: 900;     
 }
-.headerContent .text h1 span{
-    color: #053712;    
-}
 .headerContent .amountBox .input{
     background-color: rgba(255, 255, 255, 0.2);
     height: 100%;
@@ -57,6 +54,19 @@
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 20px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+
+}
+.homeContent .currencyBox select{
+    background-color: transparent;
+    font-size: 2rem;
+    color: #fff;
+    outline: none;
+    padding: 3%;
+    user-select: none;
+    cursor: pointer;
+}
+.homeContent .currencyBox select option{
+    color: #000;
 }
 .homeContent .submitBTN{
     display: flex;
@@ -71,4 +81,9 @@
     color: #2d0720;
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: .7s ease;
+}
+.homeContent .submitBTN button:hover{
+    background-color: #37052c;
 }
